@@ -16,6 +16,9 @@ let GITHUB_TOKEN = CommandLine.arguments[8]
 let generateScreenshots = false//CommandLine.arguments[6]
 let issueURL = "https://api.github.com/repos/\(REPO)/issues/\(PR_NUMBER)/comments"
 
+print("printing data")
+print(CommandLine.arguments)
+
 func getTestPlans() -> [String] {
     let process = Process()
     process.executableURL = URL(fileURLWithPath: "/usr/bin/env")
