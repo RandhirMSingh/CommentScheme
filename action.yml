@@ -1,5 +1,6 @@
 name: 'Comment testplans and generate Screenshots'
 description: 'Reads all TestPlans from  xcode project and comments on github'
+author: "Randhir M Singh"
 inputs:
   shouldCommentTestPlans:  # true or false
     description: 'Do you want to comment test plans on github PR'
@@ -19,6 +20,6 @@ runs:
       shell: bash
     - run: ${{ github.action_path }}/listTestPlans.sh
       shell: bash
-  branding:
-    color: orange
-    icon: arrow-up-right
+branding:
+  color: orange
+  icon: arrow-up-right
