@@ -5,11 +5,14 @@ import Foundation
 import FoundationNetworking
 #endif
 
-let project = CommandLine.arguments[1]
-let scheme = CommandLine.arguments[2]
-let REPO = CommandLine.arguments[3]
-let PR_NUMBER = CommandLine.arguments[4]
-let GITHUB_TOKEN = CommandLine.arguments[5]
+let testScheme = CommandLine.arguments[1]
+let projectScheme = CommandLine.arguments[2]
+let project = CommandLine.arguments[3]
+let platform = CommandLine.arguments[4]
+let configuration = CommandLine.arguments[5]
+let REPO = CommandLine.arguments[6]
+let PR_NUMBER = CommandLine.arguments[7]
+let GITHUB_TOKEN = CommandLine.arguments[8]
 let generateScreenshots = false//CommandLine.arguments[6]
 let issueURL = "https://api.github.com/repos/\(REPO)/issues/\(PR_NUMBER)/comments"
 
@@ -19,13 +22,13 @@ func getTestPlans() -> [String] {
     let pipe = Pipe()
     var testPlans = [String]()
     process.standardOutput = pipe
-    process.arguments = ["xcodebuild", "-showTestPlans", "-project", project, "-scheme", scheme]
+    process.arguments = ["xcodebuild", "-showTestPlans", "-project", project, "-scheme", testScheme]
     
     do {
         try process.run()
         let data = pipe.fileHandleForReading.readDataToEndOfFile()
         if let output = String(data: data, encoding: String.Encoding.utf8) {
-            guard let subRange = output.range(of: "\(scheme)\":") else {
+            guard let subRange = output.range(of: "\(testScheme)\":") else {
                 return testPlans
             }
             
@@ -75,8 +78,23 @@ func createIssueComment(with markdown: String) {
 
 }
 
-let testPlans = getTestPlans()
+func getMD(for testPlans: [String]) -> String {
+    var md = ""
+    var body = ""
+    testPlans.forEach {
+        md += "'**_\($0)_**'"
+    }
+    
+    if md == "" {
+        body = "No test plan found..."
+    } else {
+        body = "Available screenshots:  " + md + "<br><br>Comment **_screenshot:screenshot-name_** to get screenshots. <br><br>`e.g. screenshot:\(testPlans[0])`"
+    }
+    
+    return body
+}
 
+let testPlans = getTestPlans()
 if generateScreenshots == false {
-    createIssueComment(with: testPlans)
+    createIssueComment(with: getMD(for: testPlans))
 }
