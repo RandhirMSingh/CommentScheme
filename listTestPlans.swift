@@ -85,7 +85,7 @@ func getMD(for testPlans: [String]) -> String {
     var md = ""
     var body = ""
     testPlans.forEach {
-        md += "'**_\($0)_**'"
+        md += " '**_\($0)_**' "
     }
     
     if md == "" {
