@@ -98,6 +98,7 @@ func getMD(for testPlans: [String]) -> String {
 }
 
 let testPlans = getTestPlans()
+print("testPlans: \(testPlans)")
 if generateScreenshots == false {
     createIssueComment(with: getMD(for: testPlans))
 }
