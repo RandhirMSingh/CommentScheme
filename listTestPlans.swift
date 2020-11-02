@@ -42,7 +42,7 @@ func getTestPlans() -> [String] {
     return testPlans
 }
 
-func createIssueCommentWithAPI(with markdown: String) {
+func createIssueComment(with markdown: String) {
     let semaphore = DispatchSemaphore (value: 0)
     let body = """
     {
