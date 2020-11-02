@@ -18,7 +18,7 @@ runs:
     - id: testPlans-List
       run: echo "::set-output name=test_plans::$(echo $TESTPLANS)"
       shell: bash
-    - run: ${{ github.action_path }}/listTestPlans.sh
+    - run: ${{ github.action_path }}/listTestPlans.swift ${{env.TEST_SCHEME}} ${{env.PROJECT_SCHEME}} ${{env.PROJECT}} ${{env.PLATFORM}} ${{env.CONFIGURATION}} ${{env.REPO}} ${{env.PR_NUMBER}} ${{env.TOKEN}} 
       shell: bash
 branding:
   color: orange
