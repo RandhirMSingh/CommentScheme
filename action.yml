@@ -1,4 +1,4 @@
-name: 'Comment TestPlans'
+name: 'Comment testplans and generate Screenshots'
 description: 'Reads all TestPlans from  xcode project and comments on github'
 inputs:
   shouldCommentTestPlans:  # true or false
