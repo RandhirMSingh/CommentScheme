@@ -20,5 +20,5 @@ runs:
     - run: ${{ github.action_path }}/listTestPlans.sh
       shell: bash
   branding:
-  color: orange
-  icon: arrow-up-right
+    color: orange
+    icon: arrow-up-right
